@@ -5,6 +5,8 @@ import { User } from '../../entity/User';
 
 import { UserSignIn } from './dtos/user.signin.dtos';
 import { UserSignUp } from './dtos/user.signup.dtos';
+import AppError from '../../shared/error/AppError';
+
 export default class UserService {
   async signin(user:UserSignIn) {
     const userRepository = getRepository(User);
@@ -17,8 +19,10 @@ export default class UserService {
     })
 
     if(!existUser) {
-      return null 
+      throw new AppError('usuário não encontrado', 401)
     }
+
+    return existUser;
   }
 
   async signup(user: UserSignUp) {
