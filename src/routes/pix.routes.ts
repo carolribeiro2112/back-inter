@@ -1,13 +1,14 @@
 import { Router }  from "express";
 import userAuthenticated from "../middlewares/userAuthenticated";
+import PixController from "../resources/pix/pix.controllers";
  
 const pixRouter = Router(); 
-// const pixController = new PixController();
+const pixController = new PixController();
 
 pixRouter.use(userAuthenticated)
 
-// userRouter.post('/signin', userController.signin)
-// userRouter.post('/signup', userController.signup)
-// userRouter.get('/signup', userController.signup)
+pixRouter.post('/request', pixController.request)
+pixRouter.post('/pay/:key', pixController.pay)
+pixRouter.get('/transactions', pixController.transactions)
 
 export default pixRouter;
